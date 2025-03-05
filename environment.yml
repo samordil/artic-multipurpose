@@ -1,4 +1,4 @@
-name: hbv-artic
+name: artic-multipurpose
 channels:
   - bioconda
   - conda-forge
@@ -207,4 +207,4 @@ dependencies:
   - zlib=1.2.13=hd590300_5
   - zstd=1.5.5=hfc55251_0
   
-prefix: /home/ubuntu/miniconda3/envs/hbv-artic
+prefix: /home/ubuntu/miniconda3/envs/artic-multipurpose
