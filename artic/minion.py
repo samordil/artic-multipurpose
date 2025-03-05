@@ -430,9 +430,20 @@ def run(parser, args):
 
     fasta_header = f"{args.sample}/ARTIC/{method}"
     cmds.append(f"artic_fasta_header {consensus_fasta} '{fasta_header}'")
-    cmds.append(f"cat {consensus_fasta} {lref} > {muscle_in_fasta}")
-    cmds.append(f"muscle -in {muscle_in_fasta} -out {muscle_out_fasta}")
+    
+    # Below is the original line
+    # cmds.append(f"cat {consensus_fasta} {lref} > {muscle_in_fasta}")
 
+    ############ modified by samordil ########
+    # Corrects the error for non-circlar DNA
+    if args.circular:
+        cmds.append(f"cat {consensus_fasta} {lref} > {muscle_in_fasta}")
+    else:
+        cmds.append(f"cat {consensus_fasta} {ref} > {muscle_in_fasta}")
+    ############ end of modification ########
+    
+    cmds.append(f"muscle -in {muscle_in_fasta} -out {muscle_out_fasta}")
+    
     # 12) get some QC stats
     if args.strict:
         cmds.append(
