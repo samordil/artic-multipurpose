@@ -28,6 +28,8 @@ def run_subtool(parser, args):
         from . import run as submodule
     if args.command == "export":
         from . import export as submodule
+    if args.command == "guppyplex":             # fix: Add missing guppyplex [Samuel Odoyo]
+        from . import guppyplex as submodule
 
     # run the chosen submodule.
     submodule.run(parser, args)
@@ -300,6 +302,29 @@ def init_pipeline_parser():
         "run", help="Process an entire run folder interactively"
     )
     parser_run.set_defaults(func=run_subtool)
+    
+    # guppyplex    # fix: Add missing guppyplex [Samuel Odoyo]
+    parser_guppyplex = subparsers.add_parser("guppyplex", help="Run guppyplex module")
+    parser_guppyplex.add_argument(
+        "--directory", metavar="directory", required=True, help="Directory of FASTQ files."
+    )
+    parser_guppyplex.add_argument("--output", help="Output FASTQ file name")
+    parser_guppyplex.add_argument("--prefix", help="Prefix for output file")
+    parser_guppyplex.add_argument("--max-length", type=int, help="Maximum read length")
+    parser_guppyplex.add_argument("--min-length", type=int, help="Minimum read length")
+    parser_guppyplex.add_argument(
+        "--quality", type=int, default=10, help="Minimum read quality threshold"
+    )
+    parser_guppyplex.add_argument(
+        "--skip-quality-check",
+        action="store_true",
+        help="Skip quality filtering",
+    )
+    parser_guppyplex.add_argument(
+        "--sample", type=float, default=1.0, help="Subsampling fraction (0-1)"
+    )
+    parser_guppyplex.set_defaults(func=run_subtool)
+    ###### fix: Add missing guppyplex [Samuel Odoyo]
 
     # return the parser
     return parser
