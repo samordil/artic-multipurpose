@@ -20,6 +20,9 @@ Thumbs.db
 .snakemake/
 scripts/illumina/db/*fa.*
 
+# nextflow generated files
+.nextflow*
+
 *.pyc
 *.bak
 dist/
@@ -30,3 +33,6 @@ dist/
 CVR1/
 NRW01/
 SP1/
+
+# npm generated files #
+node_modules/
