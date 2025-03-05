@@ -1,0 +1,78 @@
+name: Release and Build Containers
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CONTAINER_NAME: artic-multipurpose # Change this to your container name
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: 🛠️ Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed for Semantic Release
+
+      - name: 🔹 Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🚀 Install Dependencies
+        run: npm ci  # Ensures a clean install
+
+      - name: 🔄 Run Semantic Release
+        id: semantic_versioning
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          RELEASE_OUTPUT=$(npx semantic-release || true)
+          echo "$RELEASE_OUTPUT"
+
+          VERSION=$(echo "$RELEASE_OUTPUT" | grep -oP '(?<=Published release )v?\d+\.\d+\.\d+' || true)
+
+          if [[ -n "$VERSION" ]]; then
+            VERSION=${VERSION#v}
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "Detected new release: $VERSION"
+          else
+            echo "No new version detected."
+          fi
+
+    outputs:
+      version: ${{ steps.semantic_versioning.outputs.version }}
+
+  build-and-push:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    if: needs.release.outputs.version != ''
+
+    steps:
+      - name: 🛠️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔹 Extract Version from Release
+        run: echo "VERSION=${{ needs.release.outputs.version }}" >> $GITHUB_ENV
+
+      - name: 🔄 Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: 🏗️ Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ env.CONTAINER_NAME }}:${{ env.VERSION }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.CONTAINER_NAME }}:${{ env.VERSION }}

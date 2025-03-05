@@ -1,0 +1,22 @@
+{
+  "name": "artic-multipurpose",
+  "version": "1.4.0",
+  "description": "[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13341402.svg)](https://doi.org/10.5281/zenodo.13341402)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "semantic-release": "^24.2.3"
+  }
+}
