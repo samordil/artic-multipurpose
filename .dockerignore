@@ -1,0 +1,15 @@
+.git
+.gitignore
+.dockerignore
+.github/
+.travis.yml
+dockerfile
+CHANGELOG
+LICENSE
+README.md
+docs/
+mkdocs.yml
+ansible/
+test*
+primerschemes/
+artic/deprecated/
