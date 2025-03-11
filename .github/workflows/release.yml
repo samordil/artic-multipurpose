@@ -3,37 +3,37 @@ name: Release and Build Containers
 on:
   push:
     branches:
-      - main   # Trigger the workflow when changes are pushed to the "main" branch
+      - main
 
 env:
-  CONTAINER_NAME: artic-multipurpose # Define the container name (change as needed)
+  CONTAINER_NAME: artic-multipurpose  # Change to your container name
 
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # Allow writing to the repository (for versioning)
-      packages: write   # Allow publishing releases (for Docker images)
+      contents: write
+      packages: write
 
     steps:
       - name: 🛠️ Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # # Ensures full history is available for versioning
+          fetch-depth: 0  # Needed for Semantic Release
 
       - name: 🔹 Set Up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20    # Use Node.js 20 for Semantic
+          node-version: 20
 
       - name: 🚀 Install Dependencies
-        run: npm ci  # Ensures a clean install of project dependencies
+        run: npm ci  # Ensures a clean install
 
       - name: 🔄 Run Semantic Release
         id: semantic_versioning
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}   # Use GitHub token for authentication
-        run: |      # Run Semantic Release and capture output
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
           RELEASE_OUTPUT=$(npx semantic-release || true)
           echo "$RELEASE_OUTPUT"
 
@@ -49,16 +49,15 @@ jobs:
           fi
 
     outputs:
-      version: ${{ steps.semantic_versioning.outputs.version }}  # Pass version to next job
+      version: ${{ steps.semantic_versioning.outputs.version }}
 
   build-and-push:
-    needs: release    # Ensure release job runs first
+    needs: release
     runs-on: ubuntu-latest
     permissions:
-      packages: write   # Allow pushing Docker images
-      contents: read    # Allow reading repository contents
-      # Run only if a new version was released
-    if: needs.release.outputs.version != ''     
+      packages: write
+      contents: read
+    if: needs.release.outputs.version != ''
 
     steps:
       - name: 🛠️ Checkout Repository
@@ -70,15 +69,15 @@ jobs:
       - name: 🔄 Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}    # Docker Hub username
-          password: ${{ secrets.DOCKER_PASSWORD }}    # Docker Hub password
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: 🔧 Set Up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
       - name: 🏗️ Build and Push Multi-Platform Docker Image
-        run: |      # Build for both x86_64 and ARM and tag with latest and version
-          docker buildx build --platform linux/amd64,linux/arm64 \      
+        run: |
+          docker buildx build --platform linux/amd64,linux/arm64 \
             -t ${{ secrets.DOCKER_USERNAME }}/${{ env.CONTAINER_NAME }}:${{ env.VERSION }} \
             -t ${{ secrets.DOCKER_USERNAME }}/${{ env.CONTAINER_NAME }}:latest \
             --push .

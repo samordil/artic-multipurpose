@@ -45,12 +45,12 @@ artic minion --circular --medaka --normalise 400 --threads 8 --scheme-directory 
 ## 🛠 **using Docker or singularity containers**
 ### 1. **Using docker**
 ```sh
-docker pull samordil/artic-multipurpose:1.5.1
-docker run --rm samordil/artic-multipurpose:1.5.1 artic -h
+docker pull samordil/artic-multipurpose:1.6.1
+docker run --rm samordil/artic-multipurpose:1.6.1 artic -h
 ```
 
 ### 2. **Using singularity**
 ```sh
-singularity pull artic-multipurpose_1.5.1.sif docker://samordil/artic-multipurpose:1.5.1
-singularity exec artic-multipurpose_1.5.1.sif artic -h
+singularity pull artic-multipurpose_1.6.1.sif docker://samordil/artic-multipurpose:1.6.1
+singularity exec artic-multipurpose_1.6.1.sif artic -h
 ```
