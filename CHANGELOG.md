@@ -5,6 +5,15 @@
 
 * correct docker push error ([06249db](https://github.com/samordil/artic-multipurpose/commit/06249db93bf301d56a196a5b73af67f81be9e2be))
 * Errors with QEMU for Multi-Arch Builds ([c23cb4e](https://github.com/samordil/artic-multipurpose/commit/c23cb4ef7ee86e38c937849f769c03c19647a165))
+* switch to linux/amd64 ([184f2e6](https://github.com/samordil/artic-multipurpose/commit/184f2e6a6c6cbbece67f1c9411ea0301f094adbe))
+
+## [1.6.1](https://github.com/samordil/artic-multipurpose/compare/v1.6.0...v1.6.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* correct docker push error ([06249db](https://github.com/samordil/artic-multipurpose/commit/06249db93bf301d56a196a5b73af67f81be9e2be))
+* Errors with QEMU for Multi-Arch Builds ([c23cb4e](https://github.com/samordil/artic-multipurpose/commit/c23cb4ef7ee86e38c937849f769c03c19647a165))
 
 ## [1.6.1](https://github.com/samordil/artic-multipurpose/compare/v1.6.0...v1.6.1) (2025-03-11)
 
