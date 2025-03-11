@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/samordil/artic-multipurpose/compare/v1.6.0...v1.6.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* correct docker push error ([06249db](https://github.com/samordil/artic-multipurpose/commit/06249db93bf301d56a196a5b73af67f81be9e2be))
+
 # [1.6.0](https://github.com/samordil/artic-multipurpose/compare/v1.5.0...v1.6.0) (2025-03-11)
 
 
