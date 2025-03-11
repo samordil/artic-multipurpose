@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/samordil/artic-multipurpose/compare/v1.5.0...v1.6.0) (2025-03-11)
+
+
+### Features
+
+* add multi-arch builds and latest tag support ([98973ca](https://github.com/samordil/artic-multipurpose/commit/98973ca0f7591d3afb2f0c0fce4d2115885b5caf))
+
 # [1.5.0](https://github.com/samordil/artic-multipurpose/compare/v1.4.0...v1.5.0) (2025-03-05)
 
 
