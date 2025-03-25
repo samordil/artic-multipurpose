@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/samordil/artic-multipurpose/compare/v1.6.1...v1.6.2) (2025-03-25)
+
+
+### Bug Fixes
+
+* Correct ps command error ([53385ae](https://github.com/samordil/artic-multipurpose/commit/53385aed6f24feb79b2fd1b78726fbdf297a19b1))
+
 ## [1.6.1](https://github.com/samordil/artic-multipurpose/compare/v1.6.0...v1.6.1) (2025-03-11)
 
 
