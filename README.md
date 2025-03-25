@@ -45,12 +45,19 @@ artic minion --circular --medaka --normalise 400 --threads 8 --scheme-directory 
 ## 🛠 **using Docker or singularity containers**
 ### 1. **Using docker**
 ```sh
-docker pull samordil/artic-multipurpose:1.6.1
-docker run --rm samordil/artic-multipurpose:1.6.1 artic -h
+docker pull samordil/artic-multipurpose:1.6.2
+docker run --rm samordil/artic-multipurpose:1.6.2 artic -h
+```
+
+On Apple Silicon (M1/M2/M3 Macs): If using Docker, you may need to pull the amd64 version explicitly:
+
+```sh
+docker pull --platform=linux/amd64 samordil/artic-multipurpose:1.6.2
+docker run --rm --platform=linux/amd64 samordil/artic-multipurpose:1.6.2 artic -h
 ```
 
 ### 2. **Using singularity**
 ```sh
-singularity pull artic-multipurpose_1.6.1.sif docker://samordil/artic-multipurpose:1.6.1
-singularity exec artic-multipurpose_1.6.1.sif artic -h
+singularity pull artic-multipurpose_1.6.2.sif docker://samordil/artic-multipurpose:1.6.2
+singularity exec artic-multipurpose_1.6.2.sif artic -h
 ```

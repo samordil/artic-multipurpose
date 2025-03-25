@@ -64,6 +64,10 @@
     # Copy only the installed environment
     COPY --from=builder /opt/conda /opt/conda
     
+    # Install ps command
+    USER root
+    RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+    
     # Switch to the non-root user
     USER ${MAMBA_USER}
     
